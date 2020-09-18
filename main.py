@@ -146,6 +146,7 @@ SETTINGS_TRAY = 'settings/tray'
 class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
 
     lines = None
+    filename = "Default" or None
 
     def __init__(self):
         super().__init__()
@@ -163,7 +164,8 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
 
         self.codeEditor = self.check_lines_state()
 
-        self.verticalLayout.addWidget(self.codeEditor)
+        self.tabWidget.addTab(self.codeEditor, self.filename)
+        # self.verticalLayout.addWidget(self.codeEditor)
 
         self.action_Open.triggered.connect(self.file_open)
         self.action_Save_File.triggered.connect(self.file_save)
@@ -177,27 +179,31 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
 
     def file_save(self):
         options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog
+        # options |= QFileDialog.DontUseNativeDialog
         file_name, _ = QFileDialog.getSaveFileName(self, "QFileDialog.getSaveFileName()", "",
                                                    "All Files (*);;Python Files (*.py)", options=options)
         if file_name:
-            with open(file_name, 'w') as file:
+            with open(file_name, 'wb') as file:
                 text = self.codeEditor.toPlainText()
-                file.write(text)
+                file.write(text.encode())
                 file.close()
+            self.filename = file_name
+            self.tabWidget.addTab(self.codeEditor, self.filename)
 
     def file_open(self):
         options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog
+        # options |= QFileDialog.DontUseNativeDialog
         file_name, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()", "",
                                                    "All Files (*);;Python Files (*.py)", options=options)
         if file_name:
-            with open(file_name, 'r+') as file:
+            with open(file_name, 'rb') as file:
                 text = file.read()
-                self.codeEditor.setPlainText(text)
+                self.codeEditor.setPlainText(text.decode())
             self.codeEditor.moveCursor(QTextCursor.End)
+            self.filename = file_name
+            self.tabWidget.addTab(self.codeEditor, self.filename)
 
-        # Слот для сохранения настроек чекбокса
+    # Слот для сохранения настроек чекбокса
     def save_check_box_settings(self):
         settings = QSettings()
         settings.setValue(SETTINGS_TRAY, self.line_numbers.isChecked())
