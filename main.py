@@ -174,6 +174,7 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
         self.action_Save_as.triggered.connect(self.save_file)
         self.action_Exit.triggered.connect(qApp.quit)
         self.action_New.triggered.connect(self.new_file)
+        self.action_Open_Project.triggered.connect(self.open_project)
 
     def check_lines_state(self):
         self.codeEditor = QCodeEditor(DISPLAY_LINE_NUMBERS=self.lines,
@@ -245,6 +246,25 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
                           SyntaxHighlighter=[x for x in (XMLHighlighter, PythonHighlighter)])
         self.tabWidget.addTab(tab, self.filename)
         self.codeEditor = tab
+
+    def open_project(self):
+        path = QFileDialog.getExistingDirectory(self, "Select a folder", "", QFileDialog.ShowDirsOnly)
+        startpath = os.listdir(path)
+        # for root, dirs, files in os.walk(path):
+        self.model = QFileSystemModel()
+        self.tree = self.treeView
+        self.tree.setRootIndex(self.model.index(path))
+        self.tree.setModel(self.model)
+            # h = QTreeWidgetItem([os.path.basename(root), ''])
+            # h.setDisabled(True)
+            # tw.addTopLevelItem(h)
+
+            # level = root.replace(path, '').count(os.sep)
+            # indent = ' ' * 4 * (level)
+            # print('{}{}/'.format(indent, os.path.basename(root)))
+            # subindent = ' ' * 4 * (level + 1)
+            # for f in files:
+            #     print('{}{}'.format(subindent, f))
 
     # Слот для сохранения настроек чекбокса
     def save_check_box_settings(self):

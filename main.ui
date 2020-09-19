@@ -68,6 +68,7 @@
     </property>
     <addaction name="action_New"/>
     <addaction name="action_Open"/>
+    <addaction name="action_Open_Project"/>
     <addaction name="action_Save"/>
     <addaction name="action_Save_as"/>
     <addaction name="separator"/>
@@ -112,49 +113,7 @@ padding: 0;</string>
       </widget>
      </item>
      <item>
-      <widget class="QTreeWidget" name="treeWidget">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(220, 220, 220);</string>
-       </property>
-       <column>
-        <property name="text">
-         <string>Name</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Path</string>
-        </property>
-       </column>
-       <item>
-        <property name="text">
-         <string>file1</string>
-        </property>
-        <property name="text">
-         <string>D:\</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>file2</string>
-        </property>
-        <property name="text">
-         <string>d:\bin</string>
-        </property>
-       </item>
-      </widget>
+      <widget class="QTreeView" name="treeView"/>
      </item>
      <item>
       <widget class="Line" name="line">
@@ -212,6 +171,14 @@ padding: 0;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Alt+S</string>
+   </property>
+  </action>
+  <action name="action_Open_Project">
+   <property name="text">
+    <string>Open Project</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+O</string>
    </property>
   </action>
  </widget>
