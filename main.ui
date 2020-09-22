@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Soder</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -86,6 +86,8 @@
     <addaction name="action_Open_Project"/>
     <addaction name="action_Save"/>
     <addaction name="action_Save_as"/>
+    <addaction name="separator"/>
+    <addaction name="actionClose_Project"/>
     <addaction name="separator"/>
     <addaction name="actionSettin_gs"/>
     <addaction name="separator"/>
@@ -217,7 +219,7 @@ padding: 0;</string>
   </action>
   <action name="action_Open">
    <property name="text">
-    <string>&amp;Open</string>
+    <string>&amp;Open File...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -233,7 +235,7 @@ padding: 0;</string>
   </action>
   <action name="action_New">
    <property name="text">
-    <string>&amp;New</string>
+    <string>&amp;New File</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
@@ -249,10 +251,21 @@ padding: 0;</string>
   </action>
   <action name="action_Open_Project">
    <property name="text">
-    <string>Open Project</string>
+    <string>Open Project...</string>
+   </property>
+   <property name="toolTip">
+    <string>Open directory as Project</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Alt+O</string>
+   </property>
+  </action>
+  <action name="actionClose_Project">
+   <property name="text">
+    <string>Close Project...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+Q</string>
    </property>
   </action>
  </widget>

@@ -12,6 +12,7 @@ ORGANIZATION_NAME = 'Soder App'
 ORGANIZATION_DOMAIN = 'soder.com'
 APPLICATION_NAME = 'Soder'
 SETTINGS_TRAY = 'settings/tray'
+CURRENT_PATH = None
 
 
 class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
@@ -42,12 +43,20 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
 
         self.action_Open.triggered.connect(self.file_open)
         self.action_Save.triggered.connect(self.save_file)
-        self.action_Save_as.triggered.connect(self.save_file)
+        self.action_Save_as.triggered.connect(self.save_file_as)
+        
+        self.action_Save.setDisabled(True)
+        self.action_Save_as.setDisabled(True)
+        
         self.action_Exit.triggered.connect(qApp.quit)
         self.action_New.triggered.connect(self.new_file)
         self.action_Open_Project.triggered.connect(self.open_project)
+        self.actionClose_Project.triggered.connect(self.close_project)
 
         self.treeView.doubleClicked.connect(self.choose_file)
+
+    def check_sevefile_button(self):
+        pass
 
     def check_lines_state(self):
         self.codeEditor = QCodeEditor(DISPLAY_LINE_NUMBERS=self.lines,
@@ -56,7 +65,7 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
         return self.codeEditor
 
     def save_file(self):
-        if os.path.exists(self.filename):
+        if os.path.exists(self.CURRENT_PATH):
             with open(self.filename, 'wb') as file:
                 text = self.codeEditor.toPlainText()
                 file.write(text.encode())
@@ -82,7 +91,31 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
                 tabs = self.tabWidget
                 self.codeEditor = tab
 
+    def save_file_as(self):
+        options = QFileDialog.Options()
+        file_name, _ = QFileDialog.getSaveFileName(self, "Save file as...", "",
+                                                   "Python Files (*.py)", options=options)
+        if file_name:
+            tab = QCodeEditor(DISPLAY_LINE_NUMBERS=self.lines,
+                              HIGHLIGHT_CURRENT_LINE=True,
+                              SyntaxHighlighter=[x for x in (XMLHighlighter, PythonHighlighter)])
+            with open(file_name, 'wb') as file:
+                text = self.codeEditor.toPlainText()
+                file.write(text.encode())
+            tab.setPlainText(text)
+            self.filename = file_name
+            tab_index = self.tabWidget.addTab(tab, self.filename)
+            try:
+                self.tabWidget.removeTab(tab_index)
+            except Exception as ex:
+                print(ex)
+            self.tabWidget.addTab(tab, self.filename)
+            tabs = self.tabWidget
+            self.codeEditor = tab
+
     def file_open(self):
+        self.action_Save_as.setDisabled(False)
+        self.action_Save.setDisabled(False)
         options = QFileDialog.Options()
         file_name, _ = QFileDialog.getOpenFileName(self, "Open file", "",
                                                    "All Files (*);;Python Files (*.py)", options=options)
@@ -131,8 +164,15 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
         self.tree.setRootIndex(model.index(path))
         self.tree.setColumnWidth(0, 250)
         self.tree.setAlternatingRowColors(True)
+        self.CURRENT_PATH = path
         name = os.path.split(path)
         self.dockWidget_5.setWindowTitle("Project: "+name[1])
+
+    def close_project(self):
+        model = QFileSystemModel()
+        self.tree = self.treeView
+        self.tree.setModel(model)
+        self.dockWidget_5.setWindowTitle("Project:")
         
 
     # Слот для сохранения настроек чекбокса
