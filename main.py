@@ -206,6 +206,8 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
             tab.moveCursor(QTextCursor.End)
             title = os.path.split(path)
             self.filename = title[1]
+            self.CURRENT_PATH_FILE = path
+            self.set_active_saving(False)
 
             title = []
 
