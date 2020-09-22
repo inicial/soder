@@ -12,13 +12,15 @@ ORGANIZATION_NAME = 'Soder App'
 ORGANIZATION_DOMAIN = 'soder.com'
 APPLICATION_NAME = 'Soder'
 SETTINGS_TRAY = 'settings/tray'
-CURRENT_PATH = None
 
 
 class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
 
     lines = None
     filename = "Untitled*" or None
+    CURRENT_PATH = None
+    CURRENT_PATH_FILE = None
+
 
     def __init__(self):
         super().__init__()
@@ -45,8 +47,7 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
         self.action_Save.triggered.connect(self.save_file)
         self.action_Save_as.triggered.connect(self.save_file_as)
         
-        self.action_Save.setDisabled(True)
-        self.action_Save_as.setDisabled(True)
+        self.set_active_saving()
         
         self.action_Exit.triggered.connect(qApp.quit)
         self.action_New.triggered.connect(self.new_file)
@@ -55,8 +56,10 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
 
         self.treeView.doubleClicked.connect(self.choose_file)
 
+
     def check_sevefile_button(self):
         pass
+
 
     def check_lines_state(self):
         self.codeEditor = QCodeEditor(DISPLAY_LINE_NUMBERS=self.lines,
@@ -64,9 +67,10 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
                                       SyntaxHighlighter=[x for x in (XMLHighlighter, PythonHighlighter)])
         return self.codeEditor
 
+
     def save_file(self):
-        if os.path.exists(self.CURRENT_PATH):
-            with open(self.filename, 'wb') as file:
+        if os.path.exists(self.CURRENT_PATH_FILE) and "Untitled*" or None:
+            with open(self.CURRENT_PATH_FILE, 'wb') as file:
                 text = self.codeEditor.toPlainText()
                 file.write(text.encode())
         else:
@@ -82,14 +86,15 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
                     file.write(text.encode())
                 tab.setPlainText(text)
                 self.filename = file_name
-                tab_index = self.tabWidget.addTab(tab, self.filename)
+                title = os.path.split(self.filename)
+                tab_index = self.tabWidget.addTab(tab, title[1])
                 try:
-                    self.tabWidget.removeTab(tab_index)
+                    self.tabWidget.removeTab(tab_index-1)
                 except Exception as ex:
                     print(ex)
-                self.tabWidget.addTab(tab, self.filename)
-                tabs = self.tabWidget
-                self.codeEditor = tab
+                tab.moveCursor(QTextCursor.End)
+                self.CURRENT_PATH_FILE = self.filename
+
 
     def save_file_as(self):
         options = QFileDialog.Options()
@@ -104,18 +109,18 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
                 file.write(text.encode())
             tab.setPlainText(text)
             self.filename = file_name
-            tab_index = self.tabWidget.addTab(tab, self.filename)
+            title = os.path.split(self.filename)
+            tab_index = self.tabWidget.addTab(tab, title[1])
             try:
-                self.tabWidget.removeTab(tab_index)
+                self.tabWidget.removeTab(tab_index-1)
             except Exception as ex:
                 print(ex)
-            self.tabWidget.addTab(tab, self.filename)
-            tabs = self.tabWidget
-            self.codeEditor = tab
+            tab.moveCursor(QTextCursor.End)
+            self.CURRENT_PATH_FILE = self.filename
+
 
     def file_open(self):
-        self.action_Save_as.setDisabled(False)
-        self.action_Save.setDisabled(False)
+        self.set_active_saving(False)
         options = QFileDialog.Options()
         file_name, _ = QFileDialog.getOpenFileName(self, "Open file", "",
                                                    "All Files (*);;Python Files (*.py)", options=options)
@@ -145,13 +150,19 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
                     if x == file_name:
                         self.tabWidget.setCurrentWidget(tab)
 
+
     def new_file(self):
+        self.set_active_saving(False)
+
         self.filename = "Untitled*" or None
         tab = QCodeEditor(DISPLAY_LINE_NUMBERS=self.lines,
                           HIGHLIGHT_CURRENT_LINE=True,
                           SyntaxHighlighter=[x for x in (XMLHighlighter, PythonHighlighter)])
         self.tabWidget.addTab(tab, self.filename)
         self.codeEditor = tab
+        self.CURRENT_PATH_FILE = self.filename
+
+
 
     def open_project(self):
         path = QFileDialog.getExistingDirectory(self, "Select a folder", '', QFileDialog.ShowDirsOnly)
@@ -171,9 +182,9 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
     def close_project(self):
         model = QFileSystemModel()
         self.tree = self.treeView
-        self.tree.setModel(model)
-        self.dockWidget_5.setWindowTitle("Project:")
-        
+        self.tree.setModel(None)
+        self.dockWidget_5.setWindowTitle("Project: ")
+
 
     # Слот для сохранения настроек чекбокса
     def save_check_box_settings(self):
@@ -182,7 +193,7 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
         settings.sync()
 
 
-    def choose_file(self, index):
+    def choose_file(self, index: int):
         self.sender() == self.treeView
         path = self.sender().model().filePath(index)
         tab = QCodeEditor(DISPLAY_LINE_NUMBERS=self.lines,
@@ -209,6 +220,11 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
                 for x in title:
                     if x == path:
                         self.tabWidget.setCurrentWidget(tab)
+    
+    
+    def set_active_saving(self, state: bool = True):
+        self.action_Save_as.setDisabled(state)
+        self.action_Save.setDisabled(state)
 
 
 if __name__ == '__main__':

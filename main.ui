@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>2844</width>
-    <height>1706</height>
+    <width>1640</width>
+    <height>1518</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,25 +36,69 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QTabWidget" name="tabWidget">
-        <property name="tabShape">
-         <enum>QTabWidget::Rounded</enum>
-        </property>
-        <property name="currentIndex">
-         <number>-1</number>
-        </property>
-        <property name="documentMode">
+       <widget class="QDockWidget" name="dockWidget_2">
+        <property name="acceptDrops">
          <bool>true</bool>
         </property>
-        <property name="tabsClosable">
-         <bool>true</bool>
-        </property>
-        <property name="movable">
-         <bool>true</bool>
-        </property>
-        <property name="tabBarAutoHide">
+        <property name="floating">
          <bool>false</bool>
         </property>
+        <property name="features">
+         <set>QDockWidget::NoDockWidgetFeatures</set>
+        </property>
+        <property name="allowedAreas">
+         <set>Qt::TopDockWidgetArea</set>
+        </property>
+        <widget class="QWidget" name="dockWidgetContents_2">
+         <property name="contextMenuPolicy">
+          <enum>Qt::ActionsContextMenu</enum>
+         </property>
+         <property name="acceptDrops">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QTabWidget" name="tabWidget">
+            <property name="acceptDrops">
+             <bool>true</bool>
+            </property>
+            <property name="tabShape">
+             <enum>QTabWidget::Rounded</enum>
+            </property>
+            <property name="currentIndex">
+             <number>-1</number>
+            </property>
+            <property name="documentMode">
+             <bool>true</bool>
+            </property>
+            <property name="tabsClosable">
+             <bool>true</bool>
+            </property>
+            <property name="movable">
+             <bool>true</bool>
+            </property>
+            <property name="tabBarAutoHide">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </widget>
       </item>
      </layout>
@@ -73,7 +117,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>2844</width>
+     <width>1640</width>
      <height>18</height>
     </rect>
    </property>
@@ -109,6 +153,9 @@
    <property name="tabletTracking">
     <bool>false</bool>
    </property>
+   <property name="acceptDrops">
+    <bool>true</bool>
+   </property>
    <property name="autoFillBackground">
     <bool>false</bool>
    </property>
@@ -134,6 +181,12 @@ padding: 0;</string>
       <horstretch>0</horstretch>
       <verstretch>0</verstretch>
      </sizepolicy>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::ActionsContextMenu</enum>
+    </property>
+    <property name="acceptDrops">
+     <bool>true</bool>
     </property>
     <property name="styleSheet">
      <string notr="true">border-color: rgba(255, 255, 255, 0);</string>
@@ -227,10 +280,10 @@ padding: 0;</string>
   </action>
   <action name="actionSettin_gs">
    <property name="text">
-    <string>Settin&amp;gs</string>
+    <string>&amp;Settings</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Alt+S</string>
+    <string>Alt+Shift+S</string>
    </property>
   </action>
   <action name="action_New">
