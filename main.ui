@@ -6,17 +6,102 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>856</width>
-    <height>651</height>
+    <width>1640</width>
+    <height>1518</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Soder</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout"/>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QDockWidget" name="dockWidget_2">
+        <property name="acceptDrops">
+         <bool>true</bool>
+        </property>
+        <property name="floating">
+         <bool>false</bool>
+        </property>
+        <property name="features">
+         <set>QDockWidget::NoDockWidgetFeatures</set>
+        </property>
+        <property name="allowedAreas">
+         <set>Qt::TopDockWidgetArea</set>
+        </property>
+        <widget class="QWidget" name="dockWidgetContents_2">
+         <property name="contextMenuPolicy">
+          <enum>Qt::ActionsContextMenu</enum>
+         </property>
+         <property name="acceptDrops">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QTabWidget" name="tabWidget">
+            <property name="acceptDrops">
+             <bool>true</bool>
+            </property>
+            <property name="tabShape">
+             <enum>QTabWidget::Rounded</enum>
+            </property>
+            <property name="currentIndex">
+             <number>-1</number>
+            </property>
+            <property name="documentMode">
+             <bool>true</bool>
+            </property>
+            <property name="tabsClosable">
+             <bool>true</bool>
+            </property>
+            <property name="movable">
+             <bool>true</bool>
+            </property>
+            <property name="tabBarAutoHide">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <widget class="QCheckBox" name="line_numbers">
@@ -32,22 +117,143 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>856</width>
-     <height>26</height>
+     <width>1640</width>
+     <height>18</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Exit">
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <addaction name="action_New"/>
     <addaction name="action_Open"/>
-    <addaction name="action_Save_File"/>
+    <addaction name="action_Open_Project"/>
+    <addaction name="action_Save"/>
+    <addaction name="action_Save_as"/>
+    <addaction name="separator"/>
+    <addaction name="actionClose_Project"/>
+    <addaction name="separator"/>
+    <addaction name="actionSettin_gs"/>
     <addaction name="separator"/>
     <addaction name="action_Exit"/>
    </widget>
    <addaction name="menu_Exit"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QDockWidget" name="dockWidget_5">
+   <property name="minimumSize">
+    <size>
+     <width>355</width>
+     <height>70</height>
+    </size>
+   </property>
+   <property name="mouseTracking">
+    <bool>false</bool>
+   </property>
+   <property name="tabletTracking">
+    <bool>false</bool>
+   </property>
+   <property name="acceptDrops">
+    <bool>true</bool>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">margin: 0;
+padding: 0;</string>
+   </property>
+   <property name="inputMethodHints">
+    <set>Qt::ImhNone</set>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::BottomDockWidgetArea|Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Project</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_5">
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::ActionsContextMenu</enum>
+    </property>
+    <property name="acceptDrops">
+     <bool>true</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-color: rgba(255, 255, 255, 0);</string>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QTreeView" name="treeView">
+       <property name="styleSheet">
+        <string notr="true">border-color: rgba(255, 255, 255, 0);</string>
+       </property>
+       <property name="lineWidth">
+        <number>1</number>
+       </property>
+       <property name="dragEnabled">
+        <bool>true</bool>
+       </property>
+       <property name="animated">
+        <bool>true</bool>
+       </property>
+       <property name="headerHidden">
+        <bool>false</bool>
+       </property>
+       <attribute name="headerDefaultSectionSize">
+        <number>0</number>
+       </attribute>
+       <attribute name="headerHighlightSections">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="headerMinimumSectionSize">
+        <number>0</number>
+       </attribute>
+       <attribute name="headerShowSortIndicator" stdset="0">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="headerStretchLastSection">
+        <bool>true</bool>
+       </attribute>
+      </widget>
+     </item>
+     <item>
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <action name="action_Exit">
    <property name="text">
     <string>&amp;Exit</string>
@@ -56,9 +262,9 @@
     <string>Ctrl+Q</string>
    </property>
   </action>
-  <action name="action_Save_File">
+  <action name="action_Save">
    <property name="text">
-    <string>&amp;Save File</string>
+    <string>&amp;Save</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -66,10 +272,53 @@
   </action>
   <action name="action_Open">
    <property name="text">
-    <string>&amp;Open</string>
+    <string>&amp;Open File...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionSettin_gs">
+   <property name="text">
+    <string>&amp;Settings</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Shift+S</string>
+   </property>
+  </action>
+  <action name="action_New">
+   <property name="text">
+    <string>&amp;New File</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="action_Save_as">
+   <property name="text">
+    <string>Save as ...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+S</string>
+   </property>
+  </action>
+  <action name="action_Open_Project">
+   <property name="text">
+    <string>Open Project...</string>
+   </property>
+   <property name="toolTip">
+    <string>Open directory as Project</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+O</string>
+   </property>
+  </action>
+  <action name="actionClose_Project">
+   <property name="text">
+    <string>Close Project...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+Q</string>
    </property>
   </action>
  </widget>
