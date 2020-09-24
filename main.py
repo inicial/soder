@@ -180,6 +180,7 @@ class EditorApp(QMainWindow, ui.design.Ui_MainWindow):
         self.dockWidget_5.setWindowTitle("Project: "+name[1])
 
     def close_project(self):
+        self.set_active_saving(True)
         model = QFileSystemModel()
         self.tree = self.treeView
         self.tree.setModel(None)
